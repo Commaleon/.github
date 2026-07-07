@@ -1,0 +1,97 @@
+[
+  {
+    "name": "type:bug",
+    "color": "d73a4a",
+    "description": "Something is broken or behaving incorrectly (Work Type: Bug)"
+  },
+  {
+    "name": "type:feature",
+    "color": "0e8a16",
+    "description": "New capability or enhancement (Work Type: Feature)"
+  },
+  {
+    "name": "type:refactor",
+    "color": "1d76db",
+    "description": "Behavior-preserving code restructuring (Work Type: Refactor)"
+  },
+  {
+    "name": "type:design",
+    "color": "c5def5",
+    "description": "UX/UI or interaction design work (Work Type: Design)"
+  },
+  {
+    "name": "type:docs",
+    "color": "0075ca",
+    "description": "Documentation only changes (Work Type: Docs)"
+  },
+  {
+    "name": "type:chore",
+    "color": "cfd3d7",
+    "description": "Tooling, deps, or maintenance with no product impact (Work Type: Chore)"
+  },
+  {
+    "name": "type:tech-debt",
+    "color": "fbca04",
+    "description": "Known shortcut to repay; reduces future friction (Work Type: Tech Debt)"
+  },
+  {
+    "name": "type:security",
+    "color": "b60205",
+    "description": "Vulnerability, hardening, or security-sensitive change (Work Type: Security)"
+  },
+  {
+    "name": "priority:P0",
+    "color": "b60205",
+    "description": "Critical: drop everything, production/blocker impact"
+  },
+  {
+    "name": "priority:P1",
+    "color": "d93f0b",
+    "description": "High: schedule into the current iteration"
+  },
+  {
+    "name": "priority:P2",
+    "color": "fbca04",
+    "description": "Medium: normal backlog priority"
+  },
+  {
+    "name": "priority:P3",
+    "color": "0e8a16",
+    "description": "Low: nice-to-have, do when capacity allows"
+  },
+  {
+    "name": "blocked",
+    "color": "e11d21",
+    "description": "Cannot progress; waiting on a dependency or external factor"
+  },
+  {
+    "name": "good-first-issue",
+    "color": "7057ff",
+    "description": "Well-scoped and approachable for a first-time contributor"
+  },
+  {
+    "name": "needs-triage",
+    "color": "ededed",
+    "description": "Not yet assessed; awaiting Service/Type/Priority classification"
+  },
+  {
+    "name": "area:api",
+    "color": "5319e7",
+    "description": "Component: HTTP/gRPC API surface, controllers, DTOs, contracts"
+  },
+  {
+    "name": "area:ui",
+    "color": "8250df",
+    "description": "Component: web frontend, components, styling"
+  },
+  {
+    "name": "area:auth",
+    "color": "9e6a03",
+    "description": "Component: authentication, authorization, tenancy, RLS"
+  },
+  {
+    "name": "area:data",
+    "color": "006b75",
+    "description": "Component: persistence, migrations, projections, data model"
+  }
+]

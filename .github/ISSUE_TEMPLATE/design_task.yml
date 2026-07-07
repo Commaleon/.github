@@ -1,0 +1,58 @@
+name: Design Task
+description: Design or redesign UI, UX, or a visual system for a Commaleon service
+title: ""
+labels: [type:design]
+projects: ["Commaleon/24"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use an **imperative title** naming the design outcome, e.g. "Redesign product grid empty state".
+        Keep the title free of bracket metadata; set Service, Priority, and Version on the project board instead.
+  - type: dropdown
+    id: service
+    attributes:
+      label: Service
+      description: Which service does this design concern?
+      options:
+        - CRM
+        - PIM
+        - PUR
+        - SHIP
+        - OMS
+        - Fulfillment
+        - Shop
+        - WMS
+        - SDM
+        - DevOps & General
+        - TIME
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Background â€” who is affected, where this appears, and why it matters.
+    validations:
+      required: false
+  - type: textarea
+    id: current
+    attributes:
+      label: Current behaviour
+      description: How the interface or flow looks and behaves today.
+    validations:
+      required: false
+  - type: textarea
+    id: desired
+    attributes:
+      label: Desired behaviour
+      description: How it should look and behave after this design work.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References / screenshots
+      description: Screenshots, Figma links, or prior art that inform the design.
+    validations:
+      required: false
