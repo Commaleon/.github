@@ -92,6 +92,26 @@ Four shared views, each a new tab. For each: click **+** next to the view tabs -
 
 ---
 
+## E. Fix per-service views (group by Work Type, not Version)
+
+The per-service views (`CRM`, `PUR`, `OMS`, `SHIP`, `PIM`, `TIMER`) group by **Version**. Since the migration cleared the old pseudo-version buckets (`X Issues & Bugs`, `X Feature`, `X Research & Refactor`) and moved their meaning to **Work Type**, items without a real Version now fall into "No Version" and effectively disappear from those views.
+
+Fix: group these views by **Work Type** instead - it restores the exact bucket columns (Feature / Bug / Refactor / Design ...) and every card shows regardless of Version.
+
+- [ ] For each of **CRM, PUR, OMS, SHIP, PIM, TIMER**: open the view tab, click the toolbar's **`Group: Version`** control -> choose **Work Type** -> tab **... -> Save changes**.
+- [ ] `SHOP`, `WMS`, `FUL`, `SDM` already group by Status - leave them (or switch to Work Type for consistency).
+- [ ] Keep `Version` for real releases only; build a separate release view grouped by Version, filtered to items that *have* a version, if you need release planning.
+
+> Note: `updateProjectV2View` does not exist in the GitHub API, so view group-by / filter / layout are UI-only.
+
+### Active Sprint view is empty
+
+The `Active Sprint` view filter is `iteration:@current status:...`, but the `Iteration` field is unused, so it matches nothing.
+
+- [ ] Edit the `Active Sprint` filter, remove `iteration:@current`, leave `status:"In progress","In Review"`. Save changes.
+
+---
+
 ## Done check
 
 - [ ] Status options: Backlog, Ready, In Progress, In Review, Done - no Todo / Ready PR / Queue.
