@@ -1,24 +1,24 @@
-# Board Setup â€” Manual One-Time Checklist
+# Board Setup - Manual One-Time Checklist
 
-These steps **cannot be done via the GitHub API** and must be performed once in the GitHub web UI by a project admin. They bring **Commaleon** org **Project #24** into line with the Task Hub standard.
-
-Work top to bottom. Each section is independent, but do them in order to avoid confusion.
+These steps **cannot be done via the GitHub API** and must be performed once in the GitHub web UI by a project admin. They bring the **Commaleon** org **Project #24** into line with the Task Hub standard.
 
 Open the project first: `https://github.com/orgs/Commaleon/projects/24`
+
+> **Order matters:** do section **C step 2** (repoint the "Item added to project" workflow off `Queue`) **before** section **A step 6** (delete the `Queue` option). The `Queue` option is still referenced by that workflow - deleting it first would disable the workflow.
 
 ---
 
 ## A. Rename & prune Status options
 
-Goal: end with exactly five Status options â€” **Backlog, Ready, In Progress, In Review, Done**.
+Goal: end with exactly five Status options - **Backlog, Ready, In Progress, In Review, Done**.
 
-- [ ] 1. Open the project. Click the **â‹¯** menu (top-right) â†’ **Settings**.
+- [ ] 1. Open the project. Click the **...** menu (top-right) -> **Settings**.
 - [ ] 2. In the left sidebar under **Fields**, click **Status**.
-- [ ] 3. Find the option named **Todo**. Click its **â‹¯** â†’ **Edit** (or click the name inline) and rename it to **Ready**. Save.
-- [ ] 4. Find the option named **Ready PR**. Rename it to **In Review**. Save.
-- [ ] 5. Locate the **Queue** option. First re-file any cards still on it: go back to the board, filter `Status:Queue`, and move each card to **Backlog** or **Ready** as appropriate, until `Status:Queue` shows zero items.
-- [ ] 6. Return to **Settings â†’ Fields â†’ Status**, click the **â‹¯** next to the now-empty **Queue** option â†’ **Delete option** â†’ confirm.
-- [ ] 7. Confirm the final option list reads, top to bottom: **Backlog, Ready, In Progress, In Review, Done**. Drag to reorder if needed.
+- [ ] 3. Rename **Todo** -> **Ready**. Save.
+- [ ] 4. Rename **Ready PR** -> **In Review**. Save.
+- [ ] 5. **Queue** should already be empty (the API migration moved all 287 cards to Backlog). Verify on the board with filter `status:Queue` -> should show 0 items.
+- [ ] 6. **First complete section C step 2**, then delete the **Queue** option: **Settings -> Fields -> Status**, click the **...** next to **Queue** -> **Delete option** -> confirm.
+- [ ] 7. Final option order, top to bottom: **Backlog, Ready, In Progress, In Review, Done**. Drag to reorder if needed.
 
 ---
 
@@ -26,71 +26,65 @@ Goal: end with exactly five Status options â€” **Backlog, Ready, In Progres
 
 Goal: the 9 archived CRM release versions read as clean SemVer, not `Done_x.y.z`.
 
-- [ ] 1. In **Settings â†’ Fields**, click the **Version** field.
-- [ ] 2. Scroll to the 9 options prefixed **`Done_`** (the archived CRM releases).
-- [ ] 3. For each of the 9, click the option name (or **â‹¯ â†’ Edit**) and delete the leading `Done_` so only the SemVer remains (e.g. `Done_0.15.5` â†’ `0.15.5`). Save after each.
-- [ ] 4. Verify all 9 now show bare SemVer and that no duplicate un-prefixed option already existed (if a collision appears, merge by re-pointing cards to the surviving option, then delete the empty one).
+- [ ] 1. **Settings -> Fields -> Version**.
+- [ ] 2. Find the 9 options prefixed **`Done_`** (archived CRM releases).
+- [ ] 3. For each, edit the option name and delete the leading `Done_` (e.g. `Done_CRM v1.0.4` -> `CRM v1.0.4`). Save after each.
+- [ ] 4. If an un-prefixed duplicate already exists, re-point its cards to the surviving option, then delete the empty one.
 
-> Reminder: `Version` carries **real releases only**. Do not add speculative versions here.
+> `Version` carries **real releases only**. Do not add speculative versions.
 
 ---
 
-## C. Enable the 4 project automations (built-in workflows)
+## C. Enable project workflows
 
-Goal: cards flow through the lifecycle without manual field edits.
+GitHub calls automations **"Workflows"** (not "Automations"). Open them from the project's **...** menu (top-right) -> **Workflows**.
 
-- [ ] 1. In the project, click **â‹¯** (top-right) â†’ **Workflows**.
-- [ ] 2. **Auto-add repo issues**
-      - Select **Auto-add to project**.
-      - Click **Edit**, choose the Task Hub service repos, and set the filter to `is:issue is:open` (add `is:pr` too if PRs should auto-add).
-      - Toggle the workflow **On**. Save.
-- [ ] 3. **Item added â†’ Backlog**
-      - Select **Item added to project**.
-      - Set **Set value â†’ Status â†’ Backlog**.
-      - Toggle **On**. Save.
-- [ ] 4. **PR linked â†’ In Review**
-      - Select **Pull request linked / merged** (use the linked-PR trigger; if only status-change triggers exist, use **Code changes requested** is *not* it â€” pick the trigger fired when a PR is linked to the item).
-      - Set **Set value â†’ Status â†’ In Review**.
-      - Toggle **On**. Save.
-- [ ] 5. **Issue/PR closed â†’ Done**
-      - Select **Item closed**.
-      - Set **Set value â†’ Status â†’ Done**.
-      - Toggle **On**. Save.
-- [ ] 6. Confirm all four workflows show **On** in the Workflows list.
+The built-in workflow names differ from generic descriptions - map each intent to the **exact name** in the list:
 
-> Note: GitHub's built-in workflow set has fixed triggers. Map each intent to the closest available trigger (`Auto-add to project`, `Item added to project`, the pull-request-linked trigger, and `Item closed`). If a desired trigger is unavailable on your plan, leave that transition manual and note it here.
+### C.1  Auto-add repo issues  ->  workflow **"Auto-add to project"**
+
+- [ ] Currently **off**. This is **optional** - see the note below.
+- [ ] Each "Auto-add to project" workflow accepts **only ONE repository** (a GitHub limitation).
+- [ ] If you enable it: pick a **high-traffic work repo** (e.g. `web`, `purchase`), **not** `changelog`.
+- [ ] Filter must be `is:issue is:open` (add `is:pr` only if you want PRs auto-added too).
+      **Do NOT add `label:bug`** or any label filter - that would auto-add only bug-labelled issues.
+- [ ] To cover several repos, add a separate "Auto-add to project" workflow per repo (GitHub allows a few).
+
+> **You may not need this at all.** The issue-form templates in `Commaleon/.github` carry `projects: ["Commaleon/24"]`, so **every issue opened through a form - from any repo - is auto-added to Project 24**. Use the built-in workflow only to also catch issues/PRs created *without* a form, on your busiest repos.
+
+### C.2  Item added -> Backlog  ->  workflow **"Item added to project"**
+
+- [ ] This workflow currently sets **Status = Queue** - that is why every new card used to land in Queue.
+- [ ] Open it, change the action to **Set value -> Status -> Backlog**. Toggle **On**. Save.
+- [ ] **Do this before deleting the Queue option (section A step 6).**
+
+### C.3  PR linked -> In Review  ->  workflow **"Pull request linked to issue"**
+
+- [ ] Already on. Edit the action to **Set value -> Status -> In Review**. Save.
+
+### C.4  Issue/PR closed -> Done  ->  workflow **"Item closed"**
+
+- [ ] Already on. Edit the action to **Set value -> Status -> Done**. Save.
+- [ ] Optional: also set **"Pull request merged"** -> **Set value -> Status -> Done**.
+
+Leave the rest as-is (`Auto-close issue`, `Auto-add sub-issues to project`, `Auto-archive items`, `Code changes requested`, `Code review approved`, `Item reopened`). Optionally set **"Item reopened"** -> Status -> In Progress.
 
 ---
 
 ## D. Create saved views
 
-Goal: four shared views everyone opens by default. Create each as a new tab.
+Four shared views, each a new tab. For each: click **+** next to the view tabs -> **New view**, configure, rename via the tab's **... -> Rename**, then **... -> Save changes** so it persists for everyone.
 
-For every view: click the **+** next to the existing view tabs â†’ **New view**, then configure and rename via the tab's **â‹¯ â†’ Rename**. Save the view (**â‹¯ â†’ Save changes**) so it persists for all members.
-
-- [ ] 1. **By Service**
-      - Layout: **Board**.
-      - **Group by â†’ Service**.
-      - Rename tab to `By Service`. Save.
-- [ ] 2. **Active Sprint**
-      - Layout: **Board** (or Table).
-      - Filter: `status:"In Progress","In Review"`.
-      - Rename tab to `Active Sprint`. Save.
-- [ ] 3. **Triage**
-      - Layout: **Table**.
-      - Filter: `status:Backlog no:priority` (untriaged backlog â€” Status is Backlog and Priority is empty).
-      - Rename tab to `Triage`. Save.
-- [ ] 4. **Bugs by Priority**
-      - Layout: **Board**.
-      - Filter: `"Work Type":Bug`.
-      - **Group by â†’ Priority**.
-      - Rename tab to `Bugs by Priority`. Save.
+- [ ] 1. **By Service** - layout **Board**, **Group by -> Service**.
+- [ ] 2. **Active Sprint** - layout **Board**, filter `status:"In Progress","In Review"`.
+- [ ] 3. **Triage** - layout **Table**, filter `status:Backlog no:priority` (untriaged backlog). Good for clearing the ~190 Work-Type-blank cards.
+- [ ] 4. **Bugs by Priority** - layout **Board**, filter `"Work Type":Bug`, **Group by -> Priority**.
 
 ---
 
 ## Done check
 
-- [ ] Status options: Backlog, Ready, In Progress, In Review, Done â€” no Todo/Ready PR/Queue.
-- [ ] All 9 archived CRM versions are bare SemVer.
-- [ ] Four workflows enabled and On.
+- [ ] Status options: Backlog, Ready, In Progress, In Review, Done - no Todo / Ready PR / Queue.
+- [ ] All archived CRM versions are bare SemVer (no `Done_`).
+- [ ] "Item added to project" sets Backlog; "Pull request linked to issue" sets In Review; "Item closed" sets Done.
 - [ ] Four saved views present and shared: By Service, Active Sprint, Triage, Bugs by Priority.
