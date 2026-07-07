@@ -1,19 +1,17 @@
 name: Research / Refactor
 description: Investigate a question or plan a refactor with no user-facing change
-title: ""
-labels: [type:refactor]
-projects: ["Commaleon/24"]
+labels:
+  - "type:refactor"
+projects:
+  - "Commaleon/24"
 body:
   - type: markdown
     attributes:
-      value: |
-        Use an **imperative title** naming the investigation or refactor, e.g. "Evaluate Testcontainers alternatives for CI" or "Extract lookup SPI into shared module".
-        Keep the title free of bracket metadata; set Service, Priority, and Version on the project board instead.
+      value: "Use an imperative title naming the investigation or refactor. Set Service and Version on the board."
   - type: dropdown
     id: service
     attributes:
       label: Service
-      description: Which service does this concern?
       options:
         - CRM
         - PIM
@@ -24,7 +22,7 @@ body:
         - Shop
         - WMS
         - SDM
-        - DevOps & General
+        - "DevOps & General"
         - TIME
     validations:
       required: true
@@ -32,20 +30,17 @@ body:
     id: question
     attributes:
       label: Question or goal
-      description: What are we trying to find out or change, and why?
     validations:
       required: true
   - type: textarea
     id: scope
     attributes:
       label: Scope / boundaries
-      description: What is in scope and, importantly, what is explicitly out of scope.
     validations:
       required: false
   - type: textarea
     id: output
     attributes:
       label: Expected output / decision
-      description: The concrete deliverable â€” a decision, a document, a spike branch, or a recommendation.
     validations:
       required: true
