@@ -118,3 +118,16 @@ The `Active Sprint` view filter is `iteration:@current status:...`, but the `Ite
 - [ ] All archived CRM versions are bare SemVer (no `Done_`).
 - [ ] "Item added to project" sets Backlog; "Pull request linked to issue" sets In Review; "Item closed" sets Done.
 - [ ] Four saved views present and shared: By Service, Active Sprint, Triage, Bugs by Priority.
+
+---
+
+## Maintenance scripts
+
+This repo is the **single source of truth** for the enforcement kit. Two idempotent scripts push it out (GitHub does not cascade YAML forms or labels org-wide):
+
+| Script | What it does | Run |
+|--------|--------------|-----|
+| `.github/distribute-forms.sh` | Copies `.github/ISSUE_TEMPLATE/*.yml` into every active service repo | `./.github/distribute-forms.sh` (or pass repo names) |
+| `.github/apply-labels.sh` | Upserts the `labels.json` taxonomy into a repo | `./.github/apply-labels.sh Commaleon/<repo>` |
+
+After editing a form or a label, re-run the matching script. Both are safe to re-run.
