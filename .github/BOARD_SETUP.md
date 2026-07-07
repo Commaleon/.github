@@ -67,7 +67,17 @@ The built-in workflow names differ from generic descriptions - map each intent t
 - [ ] Already on. Edit the action to **Set value -> Status -> Done**. Save.
 - [ ] Optional: also set **"Pull request merged"** -> **Set value -> Status -> Done**.
 
-Leave the rest as-is (`Auto-close issue`, `Auto-add sub-issues to project`, `Auto-archive items`, `Code changes requested`, `Code review approved`, `Item reopened`). Optionally set **"Item reopened"** -> Status -> In Progress.
+### C.5  The other workflows (optional - leave OFF for the core standard)
+
+Only the four above are required. The remaining built-in workflows are extras; leave them **off** unless noted:
+
+| Workflow | What it does | Recommendation |
+|----------|--------------|----------------|
+| `Auto-archive items` | Archives items matching a filter (e.g. closed 30+ days) to keep the board lean | OFF now; enable later for `is:closed updated:<-30d` |
+| `Code changes requested` | On PR "changes requested", set a field | OFF (optionally -> Status -> In Progress) |
+| `Code review approved` | On PR approval, set a field | OFF (leave cards In Review) |
+| `Item reopened` | On a closed item reopening, set a field | **Optionally ON -> Status -> In Progress** (pairs with "Item closed -> Done" so reopened cards leave Done) |
+| `Auto-close issue`, `Auto-add sub-issues to project` | GitHub defaults | Leave as-is |
 
 ---
 
